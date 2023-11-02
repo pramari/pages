@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailuserbar %}
+
+{% block content %}
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="row"> <!-- row -->
+        <div class="col"> <!-- col -->
+          <div class="card" style="width: 18rem; margin: 1em;">
+            <div class="card-header">
+              <h5 class="card-title">{{ page.title }}</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text text-start">{{ page.benefit|richtext }}</p>
+            </div>
+          </div>
+        </div> <!-- col -->
+      </div> <!-- /row -->
+      <div class="row"> <!-- row -->
+        <div class="col"> <!-- col -->
+          <div class="card" style="width: 18rem; margin: 1em;">
+            <div class="card-header">
+              <h5 class="card-title">Input</h5>
+            </div>
+            <div class="card-body text-start">
+              <p class="card-text">{{ page.method_input|richtext }}</p>
+            </div>
+          </div>
+        </div> <!-- col -->
+      </div> <!-- /row -->
+      <div class="row"> <!-- row -->
+        <div class="col"> <!-- col -->
+          <div class="card" style="width: 18rem; margin: 1em;">
+            <div class="card-header">
+              <h5 class="card-title">Output</h5>
+            </div>
+            <div class="card-body text-start">
+              <p class="card-text">{{ page.method_output|richtext }}</p>
+            </div>
+          </div>
+        </div> <!-- col -->
+      </div> <!-- /row -->
+      <div class="row"> <!-- row -->
+        <div class="col"> <!-- col -->
+          <div class="card" style="width: 18rem; margin: 1em;">
+            <div class="card-header">
+              <h5 class="card-title">back</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text text-start"><a href="{% pageurl page.get_parent %}">Back to index</a></p>
+            </div>
+          </div>
+        </div> <!-- col -->
+      </div> <!-- /row -->
+    </div> <!-- col -->
+    <div class="col text-start">
+      <article>
+          <section>{% include_block page.how %}</section>
+      </article>
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container -->
+
+{% endblock %}
