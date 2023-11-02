@@ -9,18 +9,21 @@ class PagesConfig(AppConfig):
     name = 'pages'
 
     def ready(self):
-        if self.is_installed():
+        if not self.is_installed("wagtail"):
+            """
             'wagtail.contrib.forms',
-'wagtail.contrib.redirects',
-'wagtail.embeds',
-'wagtail.sites',
-'wagtail.users',
-'wagtail.snippets',
-'wagtail.documents',
-'wagtail.images',
-'wagtail.search',
-'wagtail.admin',
-'wagtail',
+            'wagtail.contrib.redirects',
+            'wagtail.embeds',
+            'wagtail.sites',
+            'wagtail.users',
+            'wagtail.snippets',
+            'wagtail.documents',
+            'wagtail.images',
+            'wagtail.search',
+            'wagtail.admin',
+            'wagtail',
 
-'modelcluster',
-'taggit',
+            'modelcluster',
+            'taggit',
+            """
+            raise Exception
