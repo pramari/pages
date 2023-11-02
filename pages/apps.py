@@ -9,7 +9,7 @@ class PagesConfig(AppConfig):
     name = 'pages'
 
     def ready(self):
-        if not self.is_installed("wagtail"):
+        if not self.apps.is_installed("wagtail"):
             """
             'wagtail.contrib.forms',
             'wagtail.contrib.redirects',
