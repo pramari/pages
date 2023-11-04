@@ -14,24 +14,21 @@ import logging
 
 from django.urls import path
 from django.conf.urls import include
-from django.views.decorators.cache import cache_page  # , never_cache
-from django.views.generic import TemplateView
+
+# from django.views.decorators.cache import cache_page  # , never_cache
+# from django.views.generic import TemplateView
+from wagtail import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.contrib.sitemaps.views import sitemap
 
 
 logger = logging.getLogger(__name__)
 
 
-if settings.WAGTAIL:
-    from wagtail import urls as wagtail_urls
-    from wagtail.admin import urls as wagtailadmin_urls
-    from wagtail.documents import urls as wagtaildocs_urls
-    from wagtail.contrib.sitemaps.views import sitemap
-
-    from pages.models import HomePage, HomeIndexPage, MethodPage
-
-    urlpatterns += [
-        path("sitemap.xml", sitemap),
-        path(r"cms/", include(wagtailadmin_urls)),
-        path(r"documents/", include(wagtaildocs_urls)),
-        path(r"pages/", include(wagtail_urls)),
-    ]
+urlpatterns = [
+    path("sitemap.xml", sitemap),
+    path(r"cms/", include(wagtailadmin_urls)),
+    path(r"documents/", include(wagtaildocs_urls)),
+    path(r"pages/", include(wagtail_urls)),
+]
