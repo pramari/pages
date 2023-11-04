@@ -129,3 +129,6 @@ class BlogPage(Page):
         FieldPanel('intro'),
         FieldPanel('body'),
     ]
+
+class FrontPageTile(Page):
+    pass
