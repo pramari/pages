@@ -2,6 +2,12 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+reproducible = false
+
+[tool.hatch.build.targets.wheel]
+packages = ["pages/"]
+
 [project]
 name = "pramari-pages"
 version = "0.9"
@@ -13,6 +19,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "wagtail",
+  "mastodon.py",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
