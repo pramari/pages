@@ -27,3 +27,9 @@ class PagesConfig(AppConfig):
             'taggit',
             """
             raise Exception
+        from .signals import publish_to_mastodon
+        from wagtail.signals import page_published
+
+        page_published.connect(publish_to_mastodon)
+
+

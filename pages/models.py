@@ -18,6 +18,9 @@ class HomeIndexPage(Page):
     """
     This is an index for all page content.
     """
+
+    class Meta:
+        verbose_name = "Index Page"
     intro = RichTextField(blank=True)
     require_registration = models.BooleanField(default=False)
 
@@ -28,11 +31,15 @@ class HomeIndexPage(Page):
 
 
 class HomePage(Page):
+    class Meta:
+        verbose_name = "Home Page"
+
     intro = RichTextField(blank=True)
     body = RichTextField(blank=True)
     icon = models.CharField(max_length=64, default="files")
     date = models.DateField("Post date", null=True, blank=True)
     require_registration = models.BooleanField(default=False)
+    frontpage = models.BooleanField(default=False) # show on frontpage yes/no?
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
@@ -104,7 +111,7 @@ class MethodPage(Page):
         FieldPanel('tags'),
     ]
 
-
+"""
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
@@ -129,6 +136,4 @@ class BlogPage(Page):
         FieldPanel('intro'),
         FieldPanel('body'),
     ]
-
-class FrontPageTile(Page):
-    pass
+"""
