@@ -46,12 +46,17 @@ class HomePage(Page):
         FieldPanel('body'),
         FieldPanel('icon'),
         FieldPanel('date'),
-        FieldPanel('require_registration'),
         InlinePanel(
             'related_links',
             heading="Related links",
             label="Related link"
         ),
+    ]
+
+    promote_panels = [
+        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        FieldPanel('frontpage'),
+        FieldPanel('require_registration'),
     ]
 
     # Search index configuration
