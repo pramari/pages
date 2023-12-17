@@ -2,6 +2,9 @@
 
 {% load wagtailcore_tags %}
 
+{% block og %}
+<meta property="og:url" content="{% fullpageurl page %}" />
+{% endblock %}
 
 {% block breadcrumb %}
 <div class="row">

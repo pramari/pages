@@ -8,7 +8,7 @@ from wagtail.search import index
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 
 
 from taggit.models import TaggedItemBase
