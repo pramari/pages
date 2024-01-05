@@ -69,6 +69,35 @@ class HomePage(MetadataPageMixin, Page):
         index.FilterField('date'),
     ]
 
+        def get_meta_title(self):
+        """The title of this object"""
+        return "My custom object"
+
+    def get_meta_url(self):
+        """The URL of this object, including protocol and domain"""
+        return "http://example.com/my-custom-object/"
+
+    def get_meta_description(self):
+        """
+        A short text description of this object.
+        This should be plain text, not HTML.
+        """
+        return "This thing is really cool, you should totally check it out"
+
+    def get_meta_image_url(self, request):
+        """
+        Return a url for an image to use, see the MetadataPageMixin if using a Wagtail image
+        """
+        return 'https://neonjungle.studio/share.png'
+
+    def get_meta_twitter_card_type(self):
+        """
+        What kind of Twitter card to show this as.
+        Defaults to ``summary_large_photo`` if there is a meta image,
+        or ``summary`` if there is no image. Optional.
+        """
+        return "summary_large_photo"
+
 
 class HomePageRelatedLink(Orderable):
     page = ParentalKey(
@@ -118,6 +147,36 @@ class MethodPage(MetadataPageMixin, Page):
         FieldPanel('how'),
         FieldPanel('tags'),
     ]
+
+    def get_meta_title(self):
+        """The title of this object"""
+        return "My custom object"
+
+    def get_meta_url(self):
+        """The URL of this object, including protocol and domain"""
+        return "http://example.com/my-custom-object/"
+
+    def get_meta_description(self):
+        """
+        A short text description of this object.
+        This should be plain text, not HTML.
+        """
+        return "This thing is really cool, you should totally check it out"
+
+    def get_meta_image_url(self, request):
+        """
+        Return a url for an image to use, see the MetadataPageMixin if using a Wagtail image
+        """
+        return 'https://neonjungle.studio/share.png'
+
+    def get_meta_twitter_card_type(self):
+        """
+        What kind of Twitter card to show this as.
+        Defaults to ``summary_large_photo`` if there is a meta image,
+        or ``summary`` if there is no image. Optional.
+        """
+        return "summary_large_photo"
+
 
 """
 class BlogIndexPage(Page):
