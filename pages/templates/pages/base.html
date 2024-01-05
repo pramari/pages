@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailmetadata_tags %}
 
 {% block og %}
 <meta property="og:url" content="{% fullpageurl page %}" />
+{% meta_tags %}
 {% endblock %}
 
 {% block breadcrumb %}

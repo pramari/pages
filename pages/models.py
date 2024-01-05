@@ -14,6 +14,9 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from taggit.models import TaggedItemBase
 
 
+from wagtailmetadata.models import MetadataPageMixin
+
+
 class HomeIndexPage(Page):
     """
     This is an index for all page content.
@@ -30,7 +33,7 @@ class HomeIndexPage(Page):
     ]
 
 
-class HomePage(Page):
+class HomePage(MetadataPageMixin, Page):
     class Meta:
         verbose_name = "Home Page"
 
@@ -90,7 +93,7 @@ class MethodPageTag(TaggedItemBase):
     )
 
 
-class MethodPage(Page):
+class MethodPage(MetadataPageMixin, Page):
     class Meta:
         verbose_name = "method"
 

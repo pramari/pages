@@ -19,6 +19,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "wagtail",
+  "wagtail-metadata",
   "mastodon.py",
 ]
 classifiers = [
