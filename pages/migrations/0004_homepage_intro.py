@@ -5,15 +5,14 @@ import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('pages', '0003_homeindexpage'),
+        ("pages", "0003_homeindexpage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='homepage',
-            name='intro',
+            model_name="homepage",
+            name="intro",
             field=wagtail.fields.RichTextField(blank=True),
         ),
     ]

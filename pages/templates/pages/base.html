@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
-{% load wagtailmetadata_tags %}
+{% load wagtailuserbar %}
 
 {% block og %}
 <meta property="og:url" content="{% fullpageurl page %}" />
-{% meta_tags %}
+{% endblock %}
+
+{% block appmenu %}
+{% wagtailuserbar 'top-left' %}
 {% endblock %}
 
 {% block breadcrumb %}

@@ -5,6 +5,7 @@ from django import template
 logger = logging.getLogger(__name__)
 register = template.Library()
 
+
 @register.simple_tag
 def tiles(tag: str):
     try:

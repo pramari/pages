@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('pages', '0004_homepage_intro'),
+        ("pages", "0004_homepage_intro"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='homeindexpage',
-            name='require_registration',
+            model_name="homeindexpage",
+            name="require_registration",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='require_registration',
+            model_name="homepage",
+            name="require_registration",
             field=models.BooleanField(default=False),
         ),
     ]

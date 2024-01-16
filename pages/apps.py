@@ -5,8 +5,9 @@ class PagesConfig(AppConfig):
     """
     https://docs.wagtail.org/en/stable/getting_started/integrating_into_django.html
     """
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'pages'
+
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "pages"
 
     def ready(self):
         if not self.apps.is_installed("wagtail"):
@@ -31,5 +32,3 @@ class PagesConfig(AppConfig):
         from wagtail.signals import page_published
 
         page_published.connect(publish_to_mastodon)
-
-

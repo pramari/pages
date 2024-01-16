@@ -5,12 +5,11 @@ from wagtailmetadata.models import MetadataPageMixin
 
 
 class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
-    
     search_engine_index = models.BooleanField(
         blank=False,
         null=False,
         default=True,
-        verbose_name=_("Allow search engines to index this page?")
+        verbose_name=_("Allow search engines to index this page?"),
     )
 
     search_engine_changefreq = models.CharField(
@@ -27,24 +26,31 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
         blank=True,
         null=True,
         verbose_name=_("Search Engine Change Frequency (Optional)"),
-        help_text=_("How frequently the page is likely to change? (Leave blank for default)")
+        help_text=_(
+            "How frequently the page is likely to change? (Leave blank for default)"
+        ),
     )
 
     search_engine_priority = models.DecimalField(
-        max_digits=2, 
+        max_digits=2,
         decimal_places=1,
         blank=True,
         null=True,
         verbose_name=_("Search Engine Priority (Optional)"),
-        help_text=_("The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. (Leave blank for default)")
+        help_text=_(
+            "The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. (Leave blank for default)"
+        ),
     )
 
     promote_panels = [
-        MultiFieldPanel([
-            FieldPanel('search_engine_index'),
-            FieldPanel('search_engine_changefreq'),
-            FieldPanel('search_engine_priority'),
-        ], _("Search Engine Indexing")),
+        MultiFieldPanel(
+            [
+                FieldPanel("search_engine_index"),
+                FieldPanel("search_engine_changefreq"),
+                FieldPanel("search_engine_priority"),
+            ],
+            _("Search Engine Indexing"),
+        ),
     ]
 
     @property
@@ -54,10 +60,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     def get_sitemap_urls(self):
         sitemap = super().get_sitemap_urls()
         if self.search_engine_index:
-            url_item = {
-                "location": self.full_url,
-                "lastmod": self.lastmod
-            }
+            url_item = {"location": self.full_url, "lastmod": self.lastmod}
             if self.search_engine_changefreq:
                 url_item["changefreq"] = self.search_engine_changefreq
             if self.search_engine_priority:

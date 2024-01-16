@@ -6,34 +6,51 @@ import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('pages', '0001_initial'),
+        ("pages", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='homepage',
-            name='date',
-            field=models.DateField(blank=True, null=True, verbose_name='Post date'),
+            model_name="homepage",
+            name="date",
+            field=models.DateField(blank=True, null=True, verbose_name="Post date"),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='icon',
-            field=models.CharField(default='files', max_length=64),
+            model_name="homepage",
+            name="icon",
+            field=models.CharField(default="files", max_length=64),
         ),
         migrations.CreateModel(
-            name='HomePageRelatedLink',
+            name="HomePageRelatedLink",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('name', models.CharField(max_length=255)),
-                ('url', models.URLField()),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='related_links', to='pages.homepage')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("url", models.URLField()),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="related_links",
+                        to="pages.homepage",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

@@ -1,12 +1,13 @@
 {% extends "pages/base.html" %}
 
 {% load wagtailcore_tags %}
-{% load wagtailuserbar %}
+{% load wagtailmetadata_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
-{% block appmenu %}
-{% wagtailuserbar 'top-left' %}
+{% block og %}
+<meta property="og:url" content="{% fullpageurl page %}" />
+{% meta_tags %}
 {% endblock %}
 
 {% block content %}
