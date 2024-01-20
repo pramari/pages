@@ -38,14 +38,18 @@ class HomePage(MetadataPageMixin, Page):
     class Meta:
         verbose_name = "Home Page"
 
-    intro = RichTextField(blank=True)
-    body = RichTextField(blank=True)
+    card_title = RichTextField(blank=True)
+    card_subtitle = RichTextField(blank=True)
+    intro = RichTextField(blank=True) # used for 'card_text'
+    body = RichTextField(blank=True)  
     icon = models.CharField(max_length=64, default="files")
     date = models.DateField("Post date", null=True, blank=True)
     require_registration = models.BooleanField(default=False)
     frontpage = models.BooleanField(default=False)  # show on frontpage yes/no?
 
     content_panels = Page.content_panels + [
+        FieldPanel("card_title"),
+        FieldPanel("card_subtitle"),
         FieldPanel("intro"),
         FieldPanel("body"),
         FieldPanel("icon"),
