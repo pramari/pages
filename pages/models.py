@@ -14,7 +14,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from taggit.models import TaggedItemBase
 
 
-from wagtailmetadata.models import MetadataPageMixin
+# from .mixins import SEOPageMixin
 
 
 class HomeIndexPage(Page):
@@ -23,7 +23,7 @@ class HomeIndexPage(Page):
     """
 
     class Meta:
-        verbose_name = "Index Page"
+        verbose_name = "Home Index Page"
 
     intro = RichTextField(blank=True)
     require_registration = models.BooleanField(default=False)
@@ -34,14 +34,14 @@ class HomeIndexPage(Page):
     ]
 
 
-class HomePage(MetadataPageMixin, Page):
+class HomePage(Page):
     class Meta:
         verbose_name = "Home Page"
 
     card_title = RichTextField(blank=True)
     card_subtitle = RichTextField(blank=True)
-    intro = RichTextField(blank=True) # used for 'card_text'
-    body = RichTextField(blank=True)  
+    intro = RichTextField(blank=True)  # used for 'card_text'
+    body = RichTextField(blank=True)
     icon = models.CharField(max_length=64, default="files")
     date = models.DateField("Post date", null=True, blank=True)
     require_registration = models.BooleanField(default=False)
@@ -54,7 +54,7 @@ class HomePage(MetadataPageMixin, Page):
         FieldPanel("body"),
         FieldPanel("icon"),
         FieldPanel("date"),
-        InlinePanel("related_links", heading="Related links", label="Related link"),
+        InlinePanel("related_links", heading="Related links", label="Related link"),  # noqa: E501
     ]
 
     promote_panels = [
@@ -70,35 +70,18 @@ class HomePage(MetadataPageMixin, Page):
         index.FilterField("date"),
     ]
 
-    def get_meta_title(self):
-        """The title of this object"""
-        return "My custom object"
-
-    def get_meta_url(self):
-        """The URL of this object, including protocol and domain"""
-        return "http://example.com/my-custom-object/"
-
-    def get_meta_description(self):
-        """
-        A short text description of this object.
-        This should be plain text, not HTML.
-        """
-        return "This thing is really cool, you should totally check it out"
-
-    def get_meta_image_url(self, request):
-        """
-        Return a url for an image to use, see the MetadataPageMixin if using a Wagtail image
-        """
-        return "https://neonjungle.studio/share.png"
-
-    def get_meta_twitter_card_type(self):
-        """
-        What kind of Twitter card to show this as.
-        Defaults to ``summary_large_photo`` if there is a meta image,
-        or ``summary`` if there is no image. Optional.
-        """
-        return "summary_large_photo"
-
+    def get_sitemap_urls(self):
+        sitemap = super().get_sitemap_urls()
+        lastmod_blog = self.get_children().defer_streamfields().live().public().order_by('latest_revision_created_at').last()
+        sitemap.append(
+            {
+                "location": self.full_url,
+                "lastmod": lastmod_blog.latest_revision_created_at,
+                "changefreq": "weekly",
+                "priority": 0.3
+            }
+        )
+        return sitemap
 
 class HomePageRelatedLink(Orderable):
     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name="related_links")
@@ -116,8 +99,12 @@ class MethodPageTag(TaggedItemBase):
         "pages.MethodPage", on_delete=models.CASCADE, related_name="tagged_methods"
     )
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("tag-detail", kwargs={"slug": self.slug})
 
-class MethodPage(MetadataPageMixin, Page):
+
+class MethodPage(Page):
     class Meta:
         verbose_name = "method"
 
@@ -146,34 +133,6 @@ class MethodPage(MetadataPageMixin, Page):
         FieldPanel("tags"),
     ]
 
-    def get_meta_title(self):
-        """The title of this object"""
-        return "My custom object"
-
-    def get_meta_url(self):
-        """The URL of this object, including protocol and domain"""
-        return "http://example.com/my-custom-object/"
-
-    def get_meta_description(self):
-        """
-        A short text description of this object.
-        This should be plain text, not HTML.
-        """
-        return "This thing is really cool, you should totally check it out"
-
-    def get_meta_image_url(self, request):
-        """
-        Return a url for an image to use, see the MetadataPageMixin if using a Wagtail image
-        """
-        return "https://neonjungle.studio/share.png"
-
-    def get_meta_twitter_card_type(self):
-        """
-        What kind of Twitter card to show this as.
-        Defaults to ``summary_large_photo`` if there is a meta image,
-        or ``summary`` if there is no image. Optional.
-        """
-        return "summary_large_photo"
 
 
 """

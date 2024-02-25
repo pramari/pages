@@ -1,10 +1,12 @@
-from wagtail.core import models
+from django.db import models
 from wagtail.search import index
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from django.utils.translation import gettext_lazy as _
 
 from wagtailmetadata.models import MetadataPageMixin
 
 
-class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
+class SEOPageMixin(index.Indexed, MetadataPageMixin):
     search_engine_index = models.BooleanField(
         blank=False,
         null=False,

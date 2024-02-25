@@ -1,40 +1,35 @@
 {% extends "pages/base.html" %}
-
 {% load wagtailcore_tags %}
-{% load wagtailmetadata_tags %}
-
+{# load wagtailmetadata_tags #}
 {% block body_class %}template-homepage{% endblock %}
-
 {% block og %}
-<meta property="og:url" content="{% fullpageurl page %}" />
-{% meta_tags %}
+    <meta property="og:url" content="{% fullpageurl page %}" />
+    {# meta_tags #}
 {% endblock %}
-
 {% block content %}
     <!-- template id="home_page.html" -->
     <div class="row">
-	    <div class="col">
-        <h1>{{ page.title }}</h1>
-        <p>
-        {{ page.body|richtext }}
-        </p>
-        <p>
-        <p>See also:</p>
-        <p>
-        <ul>
-            {% for post in page.get_children %}
-                <li><a href="{% pageurl post %}">{{ post }}</a></li>
-            {% endfor %}
-            </ul>
-        </p>
-	    </div> <!-- col -->
-    </div> <!-- row -->
+        <div class="col">
+            <h1>{{ page.title }}</h1>
+            <p>{{ page.body|richtext }}</p>
+            <p>See also:</p>
+            <p>
+                <ul>
+                    {% for post in page.get_children.live %}
+                        <li>
+                            <a href="{% pageurl post %}">{{ post }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        </div>
+        <!-- col -->
+    </div>
+    <!-- row -->
     <!-- /template -->
 {% endblock %}
-
-
 {% block login %}
-{% if not page.require_registration == "True" %}
-   {% include 'partials/modal.html' %}
-{% endif %}
+    {% if not page.require_registration == "True" %}
+        {% include 'partials/modal.html' %}
+    {% endif %}
 {% endblock login %}

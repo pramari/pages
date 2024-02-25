@@ -11,10 +11,10 @@
         <div class="col"> <!-- col -->
           <div class="card" style="width: 18rem; margin: 1em;">
             <div class="card-header">
-              <h5 class="card-title">{{ page.title }}</h5>
+              <h4 class="card-title">{{ page.title }}</h4>
             </div>
-            <div class="card-body">
-              <p class="card-text text-start">{{ page.benefit|richtext }}</p>
+            <div class="card-body text-start">
+              <p class="card-text">{{ page.benefit|richtext }}</p>
             </div>
           </div>
         </div> <!-- col -->
@@ -23,7 +23,7 @@
         <div class="col"> <!-- col -->
           <div class="card" style="width: 18rem; margin: 1em;">
             <div class="card-header">
-              <h5 class="card-title">Input</h5>
+              <h4 class="card-title">Input</h4>
             </div>
             <div class="card-body text-start">
               <p class="card-text">{{ page.method_input|richtext }}</p>
@@ -35,7 +35,7 @@
         <div class="col"> <!-- col -->
           <div class="card" style="width: 18rem; margin: 1em;">
             <div class="card-header">
-              <h5 class="card-title">Output</h5>
+              <h4 class="card-title">Output</h4>
             </div>
             <div class="card-body text-start">
               <p class="card-text">{{ page.method_output|richtext }}</p>
@@ -47,19 +47,41 @@
         <div class="col"> <!-- col -->
           <div class="card" style="width: 18rem; margin: 1em;">
             <div class="card-header">
-              <h5 class="card-title">back</h5>
+              <h4 class="card-title">tags</h4>
             </div>
             <div class="card-body">
-              <p class="card-text text-start"><a href="{% pageurl page.get_parent %}">Back to index</a></p>
+              <p class="card-text text-start">
+                {% for tag in page.tags.all %}
+                  <a href="{% pageurl page.get_parent %}?tag={{ tag.slug }}">{{ tag }}</a>
+                {% endfor %}
+              </p>
             </div>
           </div>
         </div> <!-- col -->
       </div> <!-- /row -->
+      <div class="row"> <!-- row -->
+        <div class="col"> <!-- col -->
+          <div class="card" style="width: 18rem; margin: 1em;">
+            <div class="card-header">
+              <h4 class="card-title">back</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text text-start">
+                <a href="{% pageurl page.get_parent %}">Back to index</a>
+              </p>
+            </div> <!-- card-body -->
+          </div> <!-- card -->
+        </div> <!-- col -->
+      </div> <!-- /row -->
     </div> <!-- col -->
-    <div class="col text-start">
-      <article>
-          <section>{% include_block page.how %}</section>
-      </article>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <article class="text-start">
+            <section>{% include_block page.how %}</section>
+          </article>
+        </div> <!-- col -->
+      </div> <!-- row -->
     </div> <!-- col -->
   </div> <!-- row -->
 </div> <!-- container -->

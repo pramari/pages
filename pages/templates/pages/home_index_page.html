@@ -2,23 +2,23 @@
 {% load wagtailcore_tags %}
 {% block body_class %}template-homeindexpage{% endblock %}
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <div class="intro">{{ page.intro|richtext }}</div>
     <div class="container px-4 py-5" id="icon-grid">
+        <h1>{{ page.title }}</h1>
+        <div class="intro">{{ page.intro|richtext }}</div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
             {% for post in page.get_children %}
-                <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card col mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">
+                        <h2 class="my-0 fw-normal">
                             <i class="bi bi-{{ post.specific.icon }} text-muted flex-shrink-0 me-3"
                                width="2em"
-                               height="2em" /></i>
-                            {{ post.title }}
-                        </h4>
+                               height="2em" >
+                            {{ post.title }}</i>
+                        </h2>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"></h6>
+                        <h3 class="card-title">{{ post.specific.card_title|richtext }}</h3>
+                        <h4 class="card-subtitle mb-2 text-muted">{{ post.specific.card_subtitle|richtext }}</h4>
                         <p class="card-text">{{ post.specific.intro|richtext }}</p>
                         <p>
                             <a class="btn btn-primary btn-sm card-link"
@@ -29,22 +29,13 @@
                     <!-- card-body -->
                 </div>
                 <!-- card -->
-                <!--
-          <div class="col d-flex align-items-start">
-            <div>
-              <h4 class="fw-bold mb-0">{{ post.title }}</h4>
-              <p>{{ post.specific.intro|richtext }}</p>
-              <p><a class="btn btn-primary btn-sm card-link" href="{% pageurl post %}" role="button">Learn more.</a></p>
-            </div>
-</div> --> <!-- item -->
-<!-- </div> --> <!-- card-body -->
-{% if forloop.counter|divisibleby:4 %}
-{# make sure 4 per row, restart grid #}
-</div>
-<!-- row -->
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-{% endif %}
-{% endfor %}
-</div>
-</div>
+                {% if forloop.counter|divisibleby:3 %}
+                    {# make sure 4 per row, restart grid #}
+                </div>
+                <!-- row -->
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
